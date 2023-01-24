@@ -1,11 +1,12 @@
 ﻿@using OnlineMarket.Service.ViewModels.Products;
 @model List<ProductBaseViewModel>
-<div class="row g-10" style="display: flex;justify-content: center">
+<div class="row g-10 " style="display: flex;justify-content: center">
     @{
         foreach (var product in Model)
         {
             <div class="col-lg-4 card min-h-300px mb-5 me-5" style="width: 270px">
                 <div class="mt-5 mb-5">
+                    <a asp-asp-controller="" asp-action="" asp-route-productId="@product.Id"></a>
                     <div class="w-200px h-200px" style="display: flex;justify-content: center">
                         <img src="~/@product.ImagePath" class="card-rounded"/>
                     </div>

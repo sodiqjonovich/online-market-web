@@ -13,8 +13,9 @@ public class ProductsController : Controller
     {
         this._productService = productService;
     }
-    public async Task<ViewResult> Index(int page = 1)
+    public async Task<IActionResult> Index(int page = 1)
     {
+        ViewBag.Qahhor = "Maxsulotlar v1";
         var products = await _productService.GetAllAsync(new PaginationParams(page, _pageSize));
         return View("Index", products);
     }

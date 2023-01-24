@@ -1,20 +1,33 @@
 ﻿using OnlineMarket.DataAccess.Interfaces;
 using OnlineMarket.Domain.Entities.Users;
+using OnlineMarket.Service.Common.Exceptions;
 using OnlineMarket.Service.Common.Security;
 using OnlineMarket.Service.Dtos.Accounts;
 using OnlineMarket.Service.Interfaces.Accounts;
+using OnlineMarket.Service.Interfaces.Common;
 
 namespace OnlineMarket.Service.Services.Accounts;
 public class AccountService : IAccountService
 {
     private readonly IUnitOfWork _repository;
-    public AccountService(IUnitOfWork unitOfWork)
+    private readonly IAuthService _authService;
+    public AccountService(IUnitOfWork unitOfWork, IAuthService authService)
     {
         this._repository = unitOfWork;
+        this._authService = authService;
     }
-    public Task<string> LoginAsync(AccountLoginDto accountLoginDto)
+    public async Task<string> LoginAsync(AccountLoginDto accountLoginDto)
     {
-        throw new NotImplementedException();
+        var emailedUser = await _repository.Users.FirstOrDefaultAsync(x => x.Email == accountLoginDto.Email);
+        if (emailedUser is null) throw new ModelErrorException(nameof(accountLoginDto.Email), "Bunday email bilan foydalanuvchi mavjud emas!");
+
+        var hasherResult = PasswordHasher.Verify(accountLoginDto.Password, emailedUser.Salt, emailedUser.PasswordHash);
+        if (hasherResult)
+        {
+            string token = _authService.GenerateToken(emailedUser);
+            return token;
+        }
+        else throw new ModelErrorException(nameof(accountLoginDto.Password), "Parol xato terildi!");
     }
 
     public async Task<bool> RegisterAsync(AccountRegisterDto accountRegisterDto)
