@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineMarket.Service.Common.Utils;
 using OnlineMarket.Service.Interfaces.Products;
 
 namespace OnlineMarket.Web.Controllers;
 
 [Route("products")]
+[Authorize]
 public class ProductsController : Controller
 {
     private readonly IProductService _productService;

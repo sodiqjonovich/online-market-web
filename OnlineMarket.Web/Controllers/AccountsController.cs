@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineMarket.Service.Common.Exceptions;
+using OnlineMarket.Service.Common.Helpers;
 using OnlineMarket.Service.Dtos.Accounts;
 using OnlineMarket.Service.Interfaces.Accounts;
 
@@ -12,11 +13,9 @@ public class AccountsController : Controller
     {
         this._service = acccountService;
     }
+
     [HttpGet("login")]
-    public ViewResult Login()
-    {
-        return View("Login");
-    }
+    public ViewResult Login() => View("Login");
 
     [HttpPost("login")]
     public async Task<IActionResult> LoginAsync(AccountLoginDto accountLoginDto)
@@ -31,7 +30,7 @@ public class AccountsController : Controller
                     HttpOnly = true,
                     SameSite = SameSiteMode.Strict
                 });
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Products", new { area = "" });
             }
             catch (ModelErrorException modelError)
             {
@@ -47,10 +46,7 @@ public class AccountsController : Controller
     }
 
     [HttpGet("register")]
-    public ViewResult Register()
-    {
-        return View("Register");
-    }
+    public ViewResult Register() => View("Register");
 
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAsync(AccountRegisterDto accountRegisterDto)
@@ -68,5 +64,15 @@ public class AccountsController : Controller
             }
         }
         else return Register();
+    }
+
+    [HttpGet("logout")]
+    public IActionResult LogOut()
+    {
+        HttpContext.Response.Cookies.Append("X-Access-Token", "", new CookieOptions()
+        {
+            Expires = TimeHelper.GetCurrentServerTime().AddDays(-1)
+        });
+        return RedirectToAction("Login", "Accounts", new { area = "" });
     }
 }

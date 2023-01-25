@@ -10,8 +10,10 @@ public static class ServiceLayerConfiguration
 {
     public static void AddService(this IServiceCollection services)
     {
+        services.AddHttpContextAccessor();
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IIdentityService, IdentityService>();
     }
 }

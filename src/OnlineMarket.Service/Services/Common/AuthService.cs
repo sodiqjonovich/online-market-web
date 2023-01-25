@@ -19,6 +19,9 @@ public class AuthService : IAuthService
         var claims = new[]
            {
                 new Claim("Id", user.Id.ToString()),
+                new Claim("FirstName", user.FirstName),
+                new Claim("LastName", user.LastName),
+                new Claim("ImagePath", (user.ImagePath is null)?"":user.ImagePath),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, "User")
             };
