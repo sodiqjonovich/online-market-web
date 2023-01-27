@@ -23,4 +23,8 @@
     <ProjectReference Include="..\src\OnlineMarket.Service\OnlineMarket.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Administrator\Models\" />
+  </ItemGroup>
+
 </Project>
