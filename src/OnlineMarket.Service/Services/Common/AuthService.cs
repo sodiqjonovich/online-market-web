@@ -5,7 +5,7 @@ using OnlineMarket.Service.Interfaces.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-// Service ni kim yozgan bolsayam qo'li sinsin
+
 namespace OnlineMarket.Service.Services.Common;
 public class AuthService : IAuthService
 {
