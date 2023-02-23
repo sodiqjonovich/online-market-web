@@ -5,7 +5,6 @@ using OnlineMarket.Domain.Entities.Categories;
 using OnlineMarket.Service.Common.Utils;
 
 namespace OnlineMarket.Service.Services.Categories;
-// Service ni kim yozgan bolsayam qo'li sinsin
 public class CategoryService : ICategoryService
 {
     private readonly IUnitOfWork _repository;

@@ -6,7 +6,6 @@ using OnlineMarket.Service.Dtos.Common;
 using OnlineMarket.Service.Interfaces.Common;
 
 namespace OnlineMarket.Service.Services.Common;
-// Service ni kim yozgan bolsayam qo'li sinsin
 public class EmailService : IEmailService
 {
     private readonly IConfiguration _config;
